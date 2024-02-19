@@ -20,7 +20,6 @@ NPM packages
 * [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
 * [grunt](https://www.npmjs.com/package/grunt)
 * [grunt-banner](https://www.npmjs.com/package/grunt-banner)
-* [grunt-contrib-concat](https://www.npmjs.com/package/grunt-contrib-concat)
 * [grunt-contrib-sass](https://www.npmjs.com/package/grunt-contrib-sass)
 * [grunt-contrib-uglify](https://www.npmjs.com/package/grunt-contrib-uglify)
 * [grunt-contrib-watch](https://www.npmjs.com/package/grunt-contrib-watch)
@@ -35,7 +34,7 @@ npm run build && npm start
 ```
 Then load up `localhost:2112` yep, huge [Rush](https://www.rush.com/albums/2112/) fan...
 
-Humans
+The humans
 ---
 ```shell
 /* TEAM */

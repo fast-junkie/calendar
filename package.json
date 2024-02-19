@@ -26,7 +26,6 @@
     "eslint-plugin-import": "2.29.1",
     "grunt": "1.6.1",
     "grunt-banner": "0.6.0",
-    "grunt-contrib-concat": "2.1.0",
     "grunt-contrib-sass": "2.0.0",
     "grunt-contrib-uglify": "5.2.2",
     "grunt-contrib-watch": "1.1.0",
