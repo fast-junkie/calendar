@@ -59,6 +59,28 @@
       </div>
     </div>
 
+    <div id="modal-confirm" class="fade modal" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title">Confirm</h6>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            Are sure you want to delete event?
+          </div>
+          <div class="modal-footer">
+            <button id="cancel" class="btn btn-sm btn-outline-secondary">
+              <span class="bi bi-x-lg"></span>
+            </button>
+            <button id="ok" class="btn btn-sm btn-outline-success">
+              <span class="bi bi-check-lg"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/luxon.min.js"></script>
     <script src="/assets/js/app.min.js"></script>

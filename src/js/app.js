@@ -49,7 +49,8 @@
     this.date = luxon.DateTime;
     this.storage = new Storage(true);
     this.util = new Util();
-    this.modal = new bootstrap.Modal('#modal-event');
+    this.confirmModal = new bootstrap.Modal('#modal-confirm');
+    this.modalEvent = new bootstrap.Modal('#modal-event');
     this.dom = {
       calendar: document.querySelector('#calendar'),
       controls: {
@@ -58,8 +59,13 @@
         next: document.querySelector('#next'),
         year: document.querySelector('#year'),
       },
-      form: document.querySelector('form'),
+      confirm: {
+        form: document.querySelector('#modal-confirm form'),
+        cancel: document.querySelector('#cancel'),
+        ok: document.querySelector('#ok'),
+      },
       modal: {
+        form: document.querySelector('#modal-event form'),
         date: document.querySelector('#date'),
         delete: document.querySelector('#delete'),
         event: document.querySelector('#event'),
@@ -116,11 +122,18 @@
         }
       }
     },
+    setControlConfirm() {
+      if (this.dom.confirm.form && this.dom.confirm.ok && this.dom.confirm.cancel) {
+        this.dom.confirm.form.addEventListener('submit', (_v) => { _v.preventDefault(); });
+        this.dom.confirm.ok.addEventListener('click', this.ok.bind(this));
+        this.dom.confirm.cancel.addEventListener('click', this.cancel.bind(this));
+      }
+    },
     setControlEvent() {
-      if (this.dom.form && this.dom.modal.save && this.dom.modal.delete) {
-        this.dom.form.addEventListener('submit', (_v) => { _v.preventDefault(); });
+      if (this.dom.modal.form && this.dom.modal.save && this.dom.modal.delete) {
+        this.dom.modal.form.addEventListener('submit', (_v) => { _v.preventDefault(); });
         this.dom.modal.save.addEventListener('click', this.save.bind(this));
-        this.dom.modal.delete.addEventListener('click', this.delete.bind(this));
+        this.dom.modal.delete.addEventListener('click', this.confirm.bind(this));
       }
     },
     setControlAugment() {
@@ -218,7 +231,7 @@
           if (_v === 0) {
             _opts.attrs.class += ' bg-dark-subtle';
           } else {
-            _opts.attrs.style += ' cursor:pointer;';
+            _opts.attrs.style += 'cursor:pointer;';
             _opts.markup = `<div class="date text-end">${_v}</div>`;
             if (this.event[_v]) {
               _opts.markup += `<div class="event small text-truncate">${this.event[_v]}</div>`;
@@ -236,12 +249,22 @@
           }
         });
     },
+    confirm() {
+      this.confirmModal.show();
+    },
+    cancel() {
+      this.confirmModal.hide();
+    },
+    ok() {
+      this.delete();
+      this.confirmModal.hide();
+    },
     delete() {
-      if (this.dom.modal.event.value.length && window.confirm('Are you sure...?')) {
+      if (this.dom.modal.event.value.length) {
         const _key = `${this.selectedYear}.${this.selectedMonth}`;
         delete this.event[this.selectedDay];
         this.storage.set(_key, this.event);
-        this.modal.hide();
+        this.modalEvent.hide();
       }
       this.render();
     },
@@ -250,7 +273,7 @@
         const _key = `${this.selectedYear}.${this.selectedMonth}`;
         this.event[this.selectedDay] = this.dom.modal.event.value;
         this.storage.set(_key, this.event);
-        this.modal.hide();
+        this.modalEvent.hide();
       }
       this.render();
     },
@@ -278,7 +301,7 @@
     show(...args) {
       const [_date] = args;
       this.selectedDay = _date;
-      this.dom.form.reset();
+      this.dom.modal.form.reset();
 
       const _modalDate = [
         this.util.leadingZeros(this.selectedDay),
@@ -294,8 +317,8 @@
       } else {
         this.dom.modal.delete.classList.add('d-none');
       }
-
-      this.modal.show();
+      this.modalEvent.show();
+      setTimeout(() => { this.dom.modal.event.focus(); }, 4e2);
     },
     render() {
       this.setSelected();
@@ -305,6 +328,7 @@
     },
     init() {
       this.setControlAugment();
+      this.setControlConfirm();
       this.setControlEvent();
       this.setControlMonth();
       this.setControlYear();
@@ -314,26 +338,93 @@
 
   function Holidays() {
     this.storage = new Storage(true);
-    this.isSet = false;
     this.public = [
-      { key: '2024.1', value: { 1: '🎉 New Year\'s Day', 15: 'Martin Luther King Jr. Day' } },
-      { key: '2024.2', value: { 19: 'Presidents\' Day' } },
-      { key: '2024.5', value: { 27: '🇺🇸 Memorial Day' } },
-      { key: '2024.6', value: { 19: 'Juneteenth' } },
-      { key: '2024.7', value: { 4: '🎆 Independence Day' } },
-      { key: '2024.9', value: { 2: '⚒️ Labor Day' } },
-      { key: '2024.10', value: { 14: 'Columbus Day' } },
-      { key: '2024.11', value: { 11: '🎖️ Veterans Day', 28: '🦃 Thanksgiving Day' } },
-      { key: '2024.12', value: { 25: '🎄 Christmas Day' } },
-      { key: '2025.1', value: { 1: '🎉 New Year\'s Day', 20: 'Martin Luther King Jr. Day' } },
-      { key: '2025.2', value: { 17: 'Presidents\' Day' } },
-      { key: '2025.5', value: { 26: '🇺🇸 Memorial Day' } },
-      { key: '2025.6', value: { 19: 'Juneteenth' } },
-      { key: '2025.7', value: { 4: '🎆 Independence Day' } },
-      { key: '2025.9', value: { 1: '⚒️ Labor Day' } },
-      { key: '2025.10', value: { 13: 'Columbus Day' } },
-      { key: '2025.11', value: { 11: '🎖️ Veterans Day', 27: '🦃 Thanksgiving Day' } },
-      { key: '2025.12', value: { 25: '🎄 Christmas Day' } },
+      {
+        key: '2024.1',
+        value: { 1: 'New Year\'s Day', 15: 'Martin Luther King Jr. Day' },
+      },
+      {
+        key: '2024.2',
+        value: { 19: 'Presidents\' Day' },
+      },
+      {
+        key: '2024.3',
+        value: {
+          10: 'Daylight Saving Time', 19: 'March Equinox', 29: 'Good Friday', 31: 'Easter Sunday',
+        },
+      },
+      {
+        key: '2024.5',
+        value: { 27: 'Memorial Day' },
+      },
+      {
+        key: '2024.6',
+        value: { 19: 'Juneteenth', 20: 'June Solstice' },
+      },
+      {
+        key: '2024.7',
+        value: { 4: 'Independence Day' },
+      },
+      {
+        key: '2024.9',
+        value: { 2: 'Labor Day', 22: 'September Equinox' },
+      },
+      {
+        key: '2024.10',
+        value: { 14: 'Columbus Day' },
+      },
+      {
+        key: '2024.11',
+        value: { 3: 'Daylight Saving Time', 11: 'Veterans Day', 28: 'Thanksgiving Day' },
+      },
+      {
+        key: '2024.12',
+        value: { 21: 'December Solstice', 25: 'Christmas Day' },
+      },
+      {
+        key: '2025.1',
+        value: { 1: 'New Year\'s Day', 20: 'Martin Luther King Jr. Day' },
+      },
+      {
+        key: '2025.2',
+        value: { 17: 'Presidents\' Day' },
+      },
+      {
+        key: '2025.3',
+        value: { 9: 'Daylight Saving Time', 20: 'March Equinox' },
+      },
+      {
+        key: '2025.4',
+        value: { 18: 'Good Friday', 20: 'Easter Sunday' },
+      },
+      {
+        key: '2025.5',
+        value: { 26: 'Memorial Day' },
+      },
+      {
+        key: '2025.6',
+        value: { 19: 'Juneteenth', 20: 'June Solstice' },
+      },
+      {
+        key: '2025.7',
+        value: { 4: 'Independence Day' },
+      },
+      {
+        key: '2025.9',
+        value: { 1: 'Labor Day', 22: 'September Equinox' },
+      },
+      {
+        key: '2025.10',
+        value: { 13: 'Columbus Day' },
+      },
+      {
+        key: '2025.11',
+        value: { 2: 'Daylight Saving Time', 11: 'Veterans Day', 27: 'Thanksgiving Day' },
+      },
+      {
+        key: '2025.12',
+        value: { 21: 'December Solstice', 25: 'Christmas Day' },
+      },
     ];
   }
   Holidays.prototype = {
