@@ -49,7 +49,7 @@
     this.date = luxon.DateTime;
     this.storage = new Storage(true);
     this.util = new Util();
-    this.confirmModal = new bootstrap.Modal('#modal-confirm');
+    this.modalConfirm = new bootstrap.Modal('#modal-confirm');
     this.modalEvent = new bootstrap.Modal('#modal-event');
     this.dom = {
       calendar: document.querySelector('#calendar'),
@@ -250,14 +250,14 @@
         });
     },
     confirm() {
-      this.confirmModal.show();
+      this.modalConfirm.show();
     },
     cancel() {
-      this.confirmModal.hide();
+      this.modalConfirm.hide();
     },
     ok() {
       this.delete();
-      this.confirmModal.hide();
+      this.modalConfirm.hide();
     },
     delete() {
       if (this.dom.modal.event.value.length) {
