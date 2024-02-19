@@ -34,9 +34,9 @@ npm run build && npm start
 ```
 Then load up `localhost:2112` yep, huge [Rush](https://www.rush.com/albums/2112/) fan...
 
-Holiday's
+Holidays
 ---
-I do a simple `localStorage` insert of common US holiday's 2024, 2025, purely out of boredom. You can just comment out the `(new Holidays()).init();` to stop the initialization of them.
+I do a simple `localStorage` insert of common US holidays 2024, 2025, purely out of boredom. You can just comment out the `(new Holidays()).init();` to stop the initialization of them.
 
 The humans
 ---
