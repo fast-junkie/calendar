@@ -1,0 +1,27 @@
+{
+  "copyFiles": [
+    {
+      "from": "node_modules/bootstrap/scss/**/*.*",
+      "to": "src/sass/bootstrap/"
+    },
+    {
+      "from": "node_modules/bootstrap-icons/font/bootstrap-*.scss",
+      "to": "src/sass/bootstrap-icons/"
+    },
+    {
+      "from": "node_modules/bootstrap-icons/font/fonts/*",
+      "to": "public/assets/css/fonts/"
+    },
+    {
+      "from": "node_modules/bootstrap/dist/js/bootstrap.bundle.min.*",
+      "to": "public/assets/js/"
+    },
+    {
+      "from": "node_modules/luxon/build/global/luxon.min.*",
+      "to": "public/assets/js/"
+    }
+  ],
+  "copyFilesSettings": {
+    "whenFileExists": "overwrite"
+  }
+}

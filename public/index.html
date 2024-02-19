@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/app.min.css" />
+    <title>Calendar</title>
+  </head>
+
+  <body>
+    <div id="calendar-container" class="container-fluid">
+      <div class="row">
+        <div class="offset-0 offset-md-5 col-12 col-md-7">
+          <div id="controls" class="d-none d-sm-flex flex-row p-3">
+            <button id="back" class="btn btn-sm btn-outline-secondary me-2">
+              <span class="bi bi-caret-left-fill"></span>
+            </button>
+            <label for="month"></label>
+            <select id="month" class="form-select form-select-sm w-75"></select>
+            <label for="year"></label>
+            <input type="number" id="year" class="form-control form-control-sm text-end w-50" />
+            <button id="next" class="btn btn-sm btn-outline-secondary ms-2">
+              <span class="bi bi-caret-right-fill"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="calendar" class="d-none d-sm-block"></div>
+          <div class="alert alert-warning d-sm-none m-3">
+            Sadly... your screen is too small to practically display the calendar.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-event" class="fade modal" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title">Event</h6>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="text" id="date" class="form-control-plaintext form-control-sm text-muted ps-2 mb-3" readonly />
+            <textarea id="event" class="form-control form-control-sm" placeholder="Event details..." required></textarea>
+          </div>
+          <div class="modal-footer">
+            <button id="delete" class="btn btn-sm btn-outline-danger">
+              <span class="bi bi-trash-fill"></span>
+            </button>
+            <button id="save" class="btn btn-sm btn-outline-success">
+              <span class="bi bi-floppy-fill"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/luxon.min.js"></script>
+    <script src="/assets/js/app.min.js"></script>
+
+  </body>
+</html>
