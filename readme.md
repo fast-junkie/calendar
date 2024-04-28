@@ -1,7 +1,7 @@
 calendar
 ---
 
-This is my version of a simple, home rolled JavaScript calendar... please note, I borrowed ideas from [`code-boxx`](https://gist.github.com/code-boxx/ee4333471196b25886ee0ad6da4e13a4) though the API has been rewritten in its entirety... it is still based around the `code-boxx` zen...  
+This is my version of a simple, home rolled JavaScript calendar... please note, I borrowed ideas from [`code-boxx`](https://gist.github.com/code-boxx/ee4333471196b25886ee0ad6da4e13a4) though the API has been rewritten in its entirety... it is still based around the `code-boxx` zen...
 
 Unlike `code-boxx` I did not write any custom styles, I used several vendor libraries instead. I did used `Bootstrap`, but I chose the [`Tailwind`](https://tailwindcss.com/docs/utility-first) philosophy, utility over component, with one exception. I lazily used `Bootstrap`'s modal component 😖.
 
@@ -43,7 +43,7 @@ The humans
 ```shell
 /* TEAM */
   Human      : Fast Junkie
-  Contact    : fj-development [at] use.startmail.com
+  Contact    : development [at] f-j.8shield.net
   Mastodon   : @fast_junkie@mas.to
   Location   : These ------ States of America
   Oeuvre     : fj-development
